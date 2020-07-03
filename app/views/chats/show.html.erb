@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @chat.name %>
+</p>
+
+<p>Messages</p>
+<% @messages.each do |message| %>
+      <p>message.message</p>
+<% end %>
+
+<%= link_to 'Edit', edit_user_chat_path(@user, @chat) %> |
+<%= link_to 'Back', user_path(@user) %>
