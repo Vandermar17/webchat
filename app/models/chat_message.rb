@@ -1,3 +1,3 @@
-class ChatMessage < ActiveRecord::Base
+class ChatMessage < ApplicationRecord
   belongs_to :chat
 end

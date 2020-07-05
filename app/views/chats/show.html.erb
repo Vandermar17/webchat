@@ -6,9 +6,23 @@
 </p>
 
 <p>Messages</p>
-<% @messages.each do |message| %>
-      <p>message.message</p>
+<div id = "messHolder">
+  <% @messages.each do |message| %>
+        <%if message.user_login == current_user.login%>
+        <% className = "toRight"%>
+        <%else%>
+        <% className = "toLeft"%>
+        <%end%>
+        <div class = <%= className%>><p> <%= message.message%></p></div>
+  <% end %>
+
+<%= form_for(:chat_messages, url:user_chat_chat_messages_path(@user, @chat), :remote => true) do |f| %>
+<div class="field"><%= f.label :text %> <br/> <%= f.text_field :message %></div>
+<%= f.hidden_field :user_login, value: current_user.login %>
+<%= f.hidden_field :chat_id, value: @chat.id %>
+<div class="actions"><%= f.submit "Send"%></div>
 <% end %>
 
+</div>
 <%= link_to 'Edit', edit_user_chat_path(@user, @chat) %> |
 <%= link_to 'Back', user_path(@user) %>

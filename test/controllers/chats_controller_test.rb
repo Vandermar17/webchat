@@ -1,49 +1,48 @@
 require 'test_helper'
 
-class ChatsControllerTest < ActionController::TestCase
+class ChatsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @chat = chats(:one)
   end
 
   test "should get index" do
-    get :index
+    get chats_url
     assert_response :success
-    assert_not_nil assigns(:chats)
   end
 
   test "should get new" do
-    get :new
+    get new_chat_url
     assert_response :success
   end
 
   test "should create chat" do
     assert_difference('Chat.count') do
-      post :create, chat: { name: @chat.name }
+      post chats_url, params: { chat: { name: @chat.name } }
     end
 
-    assert_redirected_to chat_path(assigns(:chat))
+    assert_redirected_to chat_url(Chat.last)
   end
 
   test "should show chat" do
-    get :show, id: @chat
+    get chat_url(@chat)
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @chat
+    get edit_chat_url(@chat)
     assert_response :success
   end
 
   test "should update chat" do
-    patch :update, id: @chat, chat: { name: @chat.name }
-    assert_redirected_to chat_path(assigns(:chat))
+    patch chat_url(@chat), params: { chat: { name: @chat.name } }
+    assert_redirected_to chat_url(@chat)
   end
 
   test "should destroy chat" do
     assert_difference('Chat.count', -1) do
-      delete :destroy, id: @chat
+      delete chat_url(@chat)
     end
 
-    assert_redirected_to chats_path
+    assert_redirected_to chats_url
   end
 end
